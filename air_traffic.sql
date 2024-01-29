@@ -7,19 +7,35 @@ CREATE DATABASE air_traffic;
 
 \c air_traffic
 
+CREATE TABLE cities (
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE countries (
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE airlines (
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL
+);
+
 CREATE TABLE tickets
 (
   id SERIAL PRIMARY KEY,
   first_name TEXT NOT NULL,
   last_name TEXT NOT NULL,
   seat TEXT NOT NULL,
-  departure TIMESTAMP NOT NULL,
-  arrival TIMESTAMP NOT NULL,
-  airline TEXT NOT NULL,
-  from_city TEXT NOT NULL,
-  from_country TEXT NOT NULL,
-  to_city TEXT NOT NULL,
-  to_country TEXT NOT NULL
+  -- use TIMESTAMPTZ for timezone support
+  departure TIMESTAMPTZ NOT NULL,
+  arrival TIMESTAMPTZ NOT NULL,
+  airline_id INT REFERENCES airlines(id),
+  from_city_id INT REFERENCES cities(id),
+  from_country_id INT REFERENCES countries(id),
+  to_city_id INT REFERENCES cities(id),
+  to_country_id INT REFERENCES countries(id)
 );
 
 INSERT INTO tickets
