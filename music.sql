@@ -32,9 +32,8 @@ CREATE TABLE songs
   duration_in_seconds INTEGER NOT NULL,
   release_date DATE NOT NULL,
   album_id INT REFERENCES albums(id),
-  FOREIGN KEY (album_id) REFERENCES albums(id),
-  FOREIGN KEY (artist_id) REFERENCES artists(id),
-  FOREIGN KEY (producer_id) REFERENCES producers(id)
+  artist_id INT REFERENCES artists(id),
+  producer_id INT REFERENCES producers(id)
 );
 
 INSERT INTO artists (name) VALUES
